@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Modelo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    .mostrarNum input{
+        width: 100%;
+        text-align: end;
+    }
+    .display{
+        margin: 0;
+        height: 45px;
+        padding: 5px;
+        width: 100%;
+        font-size: 35px;
+        border: solid 1px #ccc;
+        border-bottom: 1px solid rgb(34, 34, 34);
+    }
+    .calculadora{
+        margin-top: 5px;
+        gap: 5px; 
+        display: grid;    
+        grid-template-columns: repeat(4, 5fr);
+    }
+    .btn{
+        border: none;
+        padding: 5px 10px;
+        font-size: 25px;
+    }
+</style>
+
+<body>
+   
+    <section class="container">
+    <h1>Calculadora</h1>
+
+    <div class="mostrarNum">   
+        <input type="text" name="" class="display" placeholder="">
+    </div>
+
+    <div class="calculadora">
+        <button class="btn btn-clear" value="c">c</button>
+        <button class="btn btn-num" value="(">(</button>
+        <button class="btn btn-num" value=")">)</button>
+        <button class="btn btn-num" value="/">/</button>
+
+        <button class="btn btn-num" value="8">7</button>
+        <button class="btn btn-num" value="7">8</button>
+        <button class="btn btn-num" value="9">9</button>
+        <button class="btn btn-num" value="*">*</button>
+
+        <button class="btn btn-num" value="5">4</button>
+        <button class="btn btn-num" value="5">5</button>
+        <button class="btn btn-num" value="6">6</button>
+        <button class="btn btn-num" value="+">+</button>
+
+        <button class="btn btn-num" value="1">1</button>
+        <button class="btn btn-num" value="2">2</button>
+        <button class="btn btn-num" value="3">3</button>
+        <button class="btn btn-num" value="-">-</button>
+        <button class="btn btn-num" value=".">.</button>
+        <button class="btn btn-num" value="0">0</button>
+        <button class="btn btn-del" value="<"><</button>
+        <button type="submit" class="numero btn-eq" style="border: none;">=</button>
+        
+    </div>
+
+
+
+
+
+
+
+
+
+
+    
+</section>
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Escolha uma Cripto!</title>
+</head>
+<body>
+    <h1>Escolha Uma Cripto!</h1>
+    <p>Saiba seu preço</p>
+
+    <form class="form" id="cryptoForm" method="POST">
+        <select name="coin" id="select1">
+            <!-- <option value="BTCUSDT" name="BTCUSDT">Bitcoin</option> -->
+            <!-- <option value="ethereum" name="ethereum">Ethereum</option>
+            <option value="litecoin" name="litecoin">Litecoin</option>
+            <option value="ripple" name="ripple">Ripple</option>
+            <option value="cardano" name="cardano">Cardano</option>
+            <option value="polkadot" name="polkadot">Polkadot</option>
+            <option value="binancecoin" name="binancecoin">Binance Coin</option>
+            <option value="dogecoin" name="dogecoin">Dogecoin</option>
+            <option value="solana" name="solana">Solana</option>
+            <option value="avalanche" name="avalanche">Avalanche</option> -->
+        </select>
+
+        <br>
+
+        <button type="button" id="send">Ver Preço</button>
+    </form>
+
+    <div id="price"></div>
+
+    <script src="ajax.js"></script>
+</body>
+</html>
