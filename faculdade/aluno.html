@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Exemplo para Instanciar Objetos Aluno</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div id="topo">
+        <ul id="atalhos">
+				  <li><a href="#irconteudo" accesskey="1">Conteúdo [1]</a></li>
+				  <li><a href="#irnavegacao" accesskey="2">Navegação [2]</a></li>
+        </ul>
+      </div>
+      <h1>
+          Cadastro de Alunos FAETERJ
+      </h1>    
+    </header>
+    <main>
+      <a id="irconteudo" class="oculto">Início do Conteúdo</a>
+      <form>
+          <div><label for="tfMatricula">Matrícula:</label><input type="text" id="tfMatricula" disabled="true" /></div>
+          <div><label for="tfCpf">CPF:</label><input type="text" id="tfCpf" disabled="true"/></div> 
+          <div><label for="tfNome">Nome:</label><input type="text" id="tfNome" disabled="true"/></div> 
+          <div><label for="tfEmail">e-Mail:</label><input type="text" id="tfEmail" disabled="true"/></div> 
+          <div><label for="tfTelefone">Telefone:</label><input type="text" id="tfTelefone" disabled="true"/></div>         
+      </form>
+        <nav>
+          <a id="irnavegacao" class="oculto">Início da Navegação</a>
+          <div id="divNavegar">
+            <button id="btPrimeiro">
+              Primeiro
+            </button>
+            <button id="btAnterior">
+              Anterior
+            </button>
+            <button id="btProximo">
+              Próximo
+            </button>
+            <button id="btUltimo">
+              Último
+            </button>
+          </div>
+          <div id="divComandos">
+            <button id="btIncluir">
+              Incluir
+            </button>
+            <button id="btAlterar">
+              Alterar
+            </button>
+            <button id="btExcluir">
+              Excluir
+            </button>
+            <button id="btSair">
+              Sair
+            </button>
+          </div>
+          <div id="divAviso">.</div>
+          <div id="divDialogo" hidden>
+            <button id="btOk">
+              Ok
+            </button>
+            <button id="btCancelar">
+              Cancelar
+            </button>
+          </div>
+        </nav>
+    </main>
+    <footer>
+      DFRO (2025/1)  
+    </footer>
+  </body>
+  <noscript>Esse navegador não possui suporte a Javascript</noscript>
+  <script type="module" src="Ctrl.js"></script>
+</html>
