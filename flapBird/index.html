@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .container{
+        background-image: url('./sprites/background-day.png');
+        background-size: contain;
+        height: 100vh;
+        width: 100%;
+    }
+    .pipeSuper{
+        position: absolute;
+        top: -5px;
+        right: -150px;
+     
+    }
+    .pipeSuper img{
+        width: 150px;
+        height: 400px;
+        rotate: 180deg;
+    }
+    .pipeDown{
+        position: absolute;
+        bottom: -5px;
+        right: -150px;
+       
+    }
+    .pipeDown img{
+        width: 150px;
+        height: 200px;
+    }
+    .movePipes{
+        overflow: hidden;
+        background-color: red;
+    }
+    .bird{
+        position: absolute;
+        top: 50%;
+        left: 10%;
+    }
+
+    .bird img{
+        width: 80px;
+    }
+
+    @keyframes movepipeDown {
+        0%{
+            transform: translateX(0px);
+        }
+        100%{
+            transform: translateX(-2300px);
+        }
+    }
+    .animationTop{
+        animation: linear 6.6s movepipeUpper infinite;
+    }
+    .animationBottom{
+        animation: linear 6.6s movepipeDown infinite;
+    }
+    .animationBird{
+        animation: birdAnimation linear 3s infinite;
+    }
+    
+    @keyframes birdAnimation {
+        0%{
+            transform: translateY(0px);
+        }
+        100%{
+            transform: translateY(400px);
+        }
+    }
+    @keyframes movepipeUpper {
+        0%{
+            transform: translateX(0px);
+        }
+        100%{
+            transform: translateX(-2300px);
+        }
+    }
+
+</style>
+<body>
+
+    <div class="container">
+
+        <div id="pipes" class="movePipes">
+            <div id="pipeTop" class="pipeSuper">
+                <img src="./sprites/pipe-green.png" alt="">
+            </div>
+    
+            <div  id="pipeBottom"  class="pipeDown">
+                <img  src="./sprites/pipe-green.png" alt="">
+            </div>
+        </div>
+
+        <div id="bird" class="bird">
+            <img id="birdFrame" src="./sprites/bluebird-midflap.png" alt="">
+        </div>
+       
+    </div>
+    <script src="./main.js"></script>
+</body>
+
+</html>

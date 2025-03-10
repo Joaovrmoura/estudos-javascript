@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    background-color: #ccc;
+    width: 700px;
+    height: 700px;
+    position: relative;
+}
+
+.keys{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+.keys .w, .a, .s, .d{
+    font-weight: bold;
+    color: #aaa7a7;
+    padding: 20px;
+    border: none;
+    border-bottom: 5px solid #ccc;
+    border-right: 10px solid #969595;
+}
+
+.buttonClick:hover{
+    transform: translateX(-5px);
+}
+
+.snake{
+    position: absolute;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    right: 50%;
+    /* animation: snakeMove 2s linear infinite; */
+}
+
+/* @keyframes snakeMove {
+    0%{
+        transform: translateY(0px);
+    }100%{
+        transform: translateY(200px);
+    }
+} */
