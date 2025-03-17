@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <div class="container mx-auto flex h-screen">
+
+
+       
+        <!-- Adicione esta seção do placar no seu HTML -->
+        <div class="score-board flex gap-4 mb-4 justify-center">
+            <div class="victories">Vitórias: <span id="victories">0</span></div>
+            <div class="defeats">Derrotas: <span id="defeats">0</span></div>
+        </div>
+
+        <!-- Adicione este modal de resultado -->
+        <div id="resultModal" class="hidden fixed inset-0 bg-slate-300 z-40 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-8 rounded-lg text-center">
+                <h2 class="text-2xl font-bold mb-4" id="resultText"></h2>
+                <button id="restartButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Jogar Novamente
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-10 w-full mx-26">
+            <h1 class="text-5xl text-slate-500 items-center text-center font-bold">
+                jogo da velha
+            </h1>
+
+            <div class="mt-16">
+                <div class="flex flex-col items-center justify-center w-full relative">
+
+                    <div class="w-32 border-t-10 border-t-slate-950 h-52 border-l-10 border-l-slate-950">
+
+
+                        <div id="head" class="hidden w-96 flex flex-col">
+                            <div class="ml-26 w-1 h-3 bg-slate-800">
+
+                            </div>
+                            <div
+                                class="ml-22 w-10 h-10 bg-slate-800 text-gray-100 rounded-xl items-center text-center relative">
+                                x x
+                            </div>
+                        </div>
+
+                        <div id="body" class="hidden flex ml-24 w-6 h-12 bg-slate-500 gap-3">
+                            <div id="arms" class="hidden w-full h-2">
+                                <span class="text-3xl text-slate-700 font-bold ">|</span>
+                                <span class="text-3xl text-slate-700 font-bold ">|</span>
+                            </div>
+                        </div>
+
+                        <div id="legs" class="hidden flex ml-24 gap-2">
+                            <div class="w-2 h-10 bg-slate-700"></div>
+                            <div class="w-2 h-10 bg-slate-700"></div>
+                        </div>
+                    </div>
+
+                    <div id="secretWorld" class="mt-5 ml-10 flex gap-8">
+
+
+                    </div>
+
+                </div>
+
+                <div class="w-full mt-16 flex flex-col gap-5 justify-center items-center teclado">
+                    <div class="gap-5 flex">
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400 ">q</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">w</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">e</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">r</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">t</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">y</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">u</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">i</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">o</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">p</button>
+                    </div>
+
+                    <div class="gap-5 flex">
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">a</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">s</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">d</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">f</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">g</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">h</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">j</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">k</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">l</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">ç</button>
+                    </div>
+
+                    <div class="gap-5 flex">
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">z</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">x</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">c</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">v</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">b</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">n</button>
+                        <button id="btn-letter"
+                            class="px-5 py-3 bg-slate-100 border-r-10 border-slate-300 text-lg font-bold text-slate-400 border-b-10 border-b-slate-400">m</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <script src="./main.js"></script>
+</body>
+
+</html>
