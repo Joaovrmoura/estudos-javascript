@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <div id="body" class=" bg-slate-900 mx-auto flex flex-col h-screen gap-2 items-center justify-center text-center">
+
+        <div class="flex flex-row text-teal-500 gap-3">
+            <input id="hours" style="font-family: 'Orbitron', sans-serif;"  name="timer" 
+            class="text-center text-9xl border-none focus:outline-none w-52" type="text" value="00">
+            <span class="text-center text-9xl">:</span> 
+
+            <input id="minutes" style="font-family: 'Orbitron', sans-serif;" name="timer" 
+            class="text-center text-9xl border-none focus:outline-none w-52 type="text" value="00">
+            <span class="text-center text-9xl">:</span> 
+     
+            <input id="seconds" style="font-family: 'Orbitron', sans-serif;" name="timer" 
+            class="text-center text-9xl border-none focus:outline-none w-52" type="text" value="00">
+          
+         
+        </div>
+
+        <div class="flex gap-10 mt-10">
+            <button id="btnScreen" class="p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-slate-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 
+                    4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                  </svg>
+                
+            </button>
+            <button id="btnEdit" class="hidden p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-slate-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652
+                     2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                  </svg>                  
+            </button>
+
+
+        
+            <button id="btnStart" class="p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-teal-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0
+                    1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                </svg>
+            </button>
+
+            <button id="btnStop" class="hidden p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-orange-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                  </svg>    
+            </button>
+
+            <button id="btnRestart" class="hidden p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 0 1 
+                    7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z" />
+                  </svg>
+            </button>
+
+            <button id="confirme" class="hidden p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-teal-500 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    
+            </button>
+
+            <button id="cancel" class="hidden p-2 cursor-pointer border border-slate-400 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-400 size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+
+        </div>
+    </div>
+
+    <script src="./timer.js"></script>
+</body>
+
+</html>
