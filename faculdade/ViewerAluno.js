@@ -1,10 +1,8 @@
 import Status from "./Status.js";
-import Aluno from "./AlunoDTO.js";
 import ViewerError from "./ModelError.js";
 
 //------------------------------------------------------------------------//
 
-//
 // A Responsabilidade desta classe é gerenciar os elementos e eventos que
 // ocorrem na página 'aluno.html'
 //
@@ -168,6 +166,7 @@ function fnBtPrimeiro() {
 function fnBtProximo() {
   // Aqui, o 'this' é o objeto Button. Eu adicionei o atributo 'viewer'
   // no botão para poder executar a instrução abaixo.
+  console.log(this.getCtrl)
   this.viewer.getCtrl().apresentarProximo();
 }
 

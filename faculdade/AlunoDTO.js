@@ -1,7 +1,6 @@
 import ModelError from "./ModelError.js";
 import Aluno from "./Aluno.js";
 
-//
 // DTO --> Data Transfer Object. É um objeto que é repassado para a camada Viewer
 // para exibição de seus dados na interface com o usuário. Não passamos para o Viewer
 // o objeto 'oficial', pois senão esse teria o poder de usar os métodos 'set' sem que
