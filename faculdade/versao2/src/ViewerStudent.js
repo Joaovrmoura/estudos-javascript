@@ -1,4 +1,5 @@
 import ModelError from "./ModelError.js"
+import Status from "./Status.js"
 
 export default class ViewrStudent{
     #controller
@@ -6,64 +7,65 @@ export default class ViewrStudent{
         this.#controller = controller
         this.DOMElements()
         this.intializedFunctions()
+        this.inputElements()
     }   
 
     DOMElements(){
-        this.name = this.getElementsById('name')
-        this.cpf = this.getElementsById('cpf')
-        this.email = this.getElementsById('email')
-        this.register = this.getElementsById('register')
-        this.phone = this.getElementsById('phone')
-        this.pagination = this.getElementsById('pagination')
-        
-        this.edit = this.getElementsById('edit')
-        this.delete = this.getElementsById('delete')
+        this.btnEdit = this.getElementsById('btnEdit')
+        this.btnDelete = this.getElementsById('btnDelete')
         this.btnAdd = this.getElementsById('btnAdd')
+        this.pagination = this.getElementsById('pagination')
+        this.modal = this.getElementsById('modal')
+        
         this.btnCancel = this.getElementsById('btnCancel')
-        this.btnConfirme = this.getElementsById('btnConfirme')
-       
+        this.btnConfirmeEdit = this.getElementsById('btnConfirmeEdit')
+        this.btnConfirmeAdd = this.getElementsById('btnConfirmeAdd')
+        this.btnConfirmeDelete = this.getElementsById('btnConfirmeDelete')
+        this.btnCancelDelete = this.getElementsById('btnCancelDelete')
+
         this.navMenu = this.getElementsById('navMenu')
         this.btnBack = this.getElementsById('btnBack')
         this.btnNext = this.getElementsById('btnNext')
     }
     
+    inputElements(){
+        this.name = this.getElementsById('name')
+        this.cpf = this.getElementsById('cpf')
+        this.email = this.getElementsById('email')
+        this.matricula = this.getElementsById('register')
+        this.phone = this.getElementsById('phone')
+    }
+
     intializedFunctions(){
         this.btnNext.onclick = nextPagination;
         this.btnBack.onclick = backPagination;
         this.btnAdd.onclick = addStudent;
+
+        this.btnConfirmeDelete.onclick = deleteStudent
         this.btnCancel.onclick = cancelAdd;
-        this.btnConfirme.onclick = confirm;
+        this.btnConfirmeAdd.onclick = confirmeAdd;
+        
+        this.btnEdit.onclick = edit;
+        this.btnConfirmeEdit.onclick = confirmeEdit;
     }
 
     navegationState(qtdStudents, position){
+        this.pagination.textContent = ''
         for(let i = 1; i <= qtdStudents; i++){
-            this.elementsOfpaganation = document.createElement('button')
-            this.elementsOfpaganation.classList.add("position", "text-gray-700", "px-3", "py-2")
 
-            if(i == position){
-                this.elementsOfpaganation.classList.add("border", "dark:border-gray-600")
-            }else{
-                this.elementsOfpaganation.classList.remove("border", "dark:border-gray-600")
-            }
-            
-            this.elementsOfpaganation.innerHTML = i
-            this.elementsOfpaganation.classList.add("text-gray-700", "px-3", "py-2")
+            const buttonIndex = document.createElement('button')
+            buttonIndex.classList.add("text-gray-700", "px-3", "py-2")
+            buttonIndex.textContent = i
 
-            if(this.pagination.getElementsByTagName('button').length < qtdStudents){   
-                this.pagination.appendChild(this.elementsOfpaganation)       
+            if(buttonIndex.textContent == position){                
+                buttonIndex.classList.add("border", "dark:border-gray-600")
             }else{
-                document.querySelectorAll('.position').forEach(button => {
-                    let positionPage = Number(button.textContent)
-                    if(positionPage == position){
-                        button.classList.add("border", "dark:border-gray-600")
-                    }else{
-                        button.classList.remove("border", "dark:border-gray-600")
-                    }
-                })
+                buttonIndex.classList.remove("border", "dark:border-gray-600")
             }
+            this.pagination.appendChild(buttonIndex)
         }
     }
-
+    
     getController(){
         return this.#controller 
     }
@@ -77,47 +79,52 @@ export default class ViewrStudent{
         return element
     }
 
+    disabledInputs(isDisabled){
+        Object.values({name: this.name, cpf: this.cpf, email: this.email, matricula: this.matricula,phone: this.phone  
+        }).forEach(element => { element.disabled = isDisabled;});
+    }
+
     statusNavegation(status){
-        if('navegate'){
-            this.name.disabled = true
-            this.cpf.disabled = true     
-            this.register.disabled = true
-            this.phone.disabled = true
-            this.email.disabled = true   
+        if(status == Status.NAVEGATE){
+            this.disabledInputs(true); 
+            this.modal.classList.remove('hidden')
             this.navMenu.style.display = 'flex'
             this.btnAdd.classList.remove('hidden')
             this.btnCancel.classList.add('hidden')
-            this.btnConfirme.classList.add('hidden')
-        } 
-
-        if(status == 'changing'){
-            this.name.disabled = false
-            this.cpf.disabled = false     
-            this.register.disabled = false
-            this.phone.disabled = false
-            this.email.disabled = false 
+            this.btnConfirmeAdd.classList.add('hidden')
+            this.btnConfirmeEdit.classList.add("hidden")
         }
-        else if(status == 'add'){
-            this.name.disabled = false
-            this.cpf.disabled = false     
-            this.register.disabled = false
-            this.phone.disabled = false
-            this.email.disabled = false 
+
+        if(status == Status.EDITING){
+            this.disabledInputs(false);
+            this.matricula.disabled = true; 
 
             this.navMenu.style.display = 'none'
-            this.btnAdd.classList.add("hidden")
-            this.btnConfirme.classList.remove("hidden")
+            this.btnAdd.classList.add('hidden')
+            this.btnConfirmeEdit.classList.remove('hidden')
             this.btnCancel.classList.remove('hidden')
+        }
+
+
+        if(status == Status.ADD){
+            this.disabledInputs(false)
+            
+            this.modal.classList.add('hidden')
+            this.navMenu.style.display = 'none'
+            this.btnAdd.classList.add('hidden')
+            this.btnConfirmeAdd.classList.remove('hidden')
+            this.btnCancel.classList.remove('hidden')
+
             this.name.value = ""
             this.cpf.value = ""     
-            this.register.value = ""
+            this.matricula.value = ""
             this.phone.value = ""
-            this.email.value = "" 
+            this.email.value = ""
         }
+   
     }
 
-
-    displayStudents(student, qtd, position){
+    displayStudents(student, qtd, position){     
         this.navegationState(qtd, position)
         if(student == null){
             console.log('Não existem alunos para listar');
@@ -126,22 +133,54 @@ export default class ViewrStudent{
             this.cpf.value = student.getCpf();
             this.phone.value = student.getTelefone();
             this.name.value = student.getNome();
-            this.register.value = student.getMatricula();
+            this.matricula.value = student.getMatricula();
         }
     }
 }
 
 function nextPagination(){
-    console.log('next');
-    this.viewer.getController().nextPage()
+    this.viewer.getController().nextPosition()
 }
 function backPagination(){
-    console.log('back');
-    this.viewer.getController().backPage()
+    this.viewer.getController().backPosition()
 }
 function addStudent(){
-    this.viewer.getController().addStudent()
+    this.viewer.getController().initAdd()
 }
 function cancelAdd(){
     this.viewer.getController().cancelAdd()
 }
+function edit(){
+    this.viewer.getController().initUpdate()
+}
+
+function confirmeAdd(){ 
+    const matricula = this.viewer.matricula.value
+    const cpf = this.viewer.cpf.value
+    const nome = this.viewer.name.value
+    const email = this.viewer.email.value 
+    const telefone = this.viewer.phone.value
+    
+    this.viewer.getController().add(matricula, cpf, nome, email, telefone)
+}
+
+function deleteStudent(){
+    const matricula = this.viewer.matricula.value
+    const cpf = this.viewer.cpf.value
+    const nome = this.viewer.name.value
+    const email = this.viewer.email.value 
+    const telefone = this.viewer.phone.value
+
+    this.viewer.getController().delete(matricula, cpf, nome, email, telefone)
+}
+
+function confirmeEdit(){
+    const matricula = this.viewer.matricula.value
+    const cpf = this.viewer.cpf.value
+    const nome = this.viewer.name.value
+    const email = this.viewer.email.value 
+    const telefone = this.viewer.phone.value
+
+    this.viewer.getController().edit(matricula, cpf, nome, email, telefone)
+}
+

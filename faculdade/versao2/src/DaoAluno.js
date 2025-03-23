@@ -11,7 +11,7 @@
 // import ModelError from "./ModelError.js";
 
 import Aluno from "./Aluno.js";
-
+import ModelError from "./ModelError.js";
 
 /*
  * DAO --> Data Access Object

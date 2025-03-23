@@ -199,3 +199,4 @@ export default class Aluno {
     alert(JSON.stringify(this));
   }
 }
+
