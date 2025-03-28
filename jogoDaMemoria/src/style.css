@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    background-image: url("./images/logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    align-self: center;
+    height: 100vh;
+}
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(4, 3fr);
+    margin-right: 200px;
+    margin-left: 200px;
+    gap: 20px;
+    padding: 50px;
+}
+
+.card-item{
+    background-color: rgb(95, 178, 245);
+    padding: 8px;
+    border-radius: 6px;
+    width: 200px;
+    height: 250px;
+    transition: ease 1s;
+}
+
+.animeCard{
+    transform:rotateY(180deg) ;
+}
+
+.choiceCard{
+    animation: rotateCard ease 1s;
+}
+
+@keyframes rotateCard {
+    0%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(180deg);
+    }
+}
