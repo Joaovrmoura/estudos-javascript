@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="nav-main">
+        <ul class="links">
+            <li class="link-item">home</li>
+            <li class="link-item">noticies</li>
+            <li class="link-item">blog</li>
+            <li class="link-item">about</li>
+            <li class="link-item">contact</li>
+        </ul>
+    </nav>
+
+    <nav class="nav-mobile">
+       <i id="btnMenu" class="fa-solid fa-bars"></i>
+        <ul class="links-mobile">
+            <li class="link-item">home</li>
+            <li class="link-item">noticies</li>
+            <li class="link-item">blog</li>
+            <li class="link-item">about</li>
+            <li class="link-item">contact</li>
+        </ul>
+    </nav>
+    
+
+    <div class="slide-container">
+            <img  src="./imgs/template.webp" alt="">
+            <img class="hiddenSlide" src="./imgs/template2.webp" alt="">
+            <img class="hiddenSlide" src="./imgs/template3.webp" alt="">
+
+        <div class="arrows">
+            <i id="left" class="fa-solid fa-arrow-left"></i>
+            <i id="right" class="fa-solid fa-arrow-right"></i>
+        </div>
+
+        <div class="moveSlide">
+             <div class="slide activeSlide"></div> 
+    
+        </div>
+    </div>
+
+
+    <div class="animated-letters">
+        <p class="letters"></p>
+    </div>
+
+    <div class="container">
+        <div class="nav">
+            <ul class="nav-itens">
+                <li class="item-nav active">PHP</li>
+                <li class="item-nav">NODE</li>
+                <li class="item-nav">JAVA</li>
+                <li class="item-nav">PYTHON</li>
+                <li class="item-nav">GO</li>
+            </ul>
+        </div>
+        
+        <div class="content content-hidden node">
+            <p>NodeJS é um ambiente de runtime de back-end 
+                freemium de código aberto inicialmente lançado 
+                em 2009. Essa tecnologia carrega o código JS além 
+                do navegador e depende do mecanismo V8.
+            </p>
+        </div>
+        <div class="content php">
+            <p>Converter para Serverless Edge Functions
+                Você pode usar PHP em WebAssembly (WASM), como o wasmer/php-wasm.
+                Outra opção é rodar PHP como CGI dentro de uma API serverless, mas não é ideal.
+            </p>
+        </div>
+        <div class="content content-hidden java">
+            <p>Java é uma linguagem de programação e plataforma de computação liberada 
+                pela primeira vez pela Sun Microsystems em 1995. De um início humilde, 
+                ela evoluiu para uma grande participação no mundo 
+                digital dos dias atuais, oferecendo a plataforma 
+                confiável na qual muitos serviços e aplicativos</p>
+        </div>
+        <div class="content content-hidden python">
+            <p>Python é uma linguagem de programação de alto nível,
+                gratuita e de código aberto, projetada para ser acessível 
+                e funcional1234. Ela é utilizada em diversas aplicações, 
+                como desktop, web, servidores e ciência de dados1
+            </p>
+        </div>
+        <div class="content content-hidden go">
+            <p>A linguagem Go, também conhecida como Golang, é uma linguagem de programação de código 
+                aberto desenvolvida pela Google. Ela é compilada, estática e tipada, 
+                combinando características de linguagens como
+                C e C++, mas com uma sintaxe mais simples e fácil de aprender. Go se 
+                destaca por sua eficiência, simplicidade e suporte 
+                robusto para programação concorrente
+            </p>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
