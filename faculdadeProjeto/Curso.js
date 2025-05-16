@@ -79,8 +79,12 @@ class Curso {
 
     //==================== Validações ====================//
 
-    static validarId(id) {
-        return typeof id === 'number' && id > 0;
+
+    static validarId(id_curso) {
+        if (typeof id_curso === 'number' && id_curso > 0) {
+            return true;
+        }
+        return false
     }
 
     //-----------------------------------------------------------------------------------------//

@@ -105,22 +105,20 @@ class Instrutor {
     //-----------------------------------------------------------------------------------------//
 
     static validarEmail(email) {
-        if (typeof email != 'string' || email.trim() == "" || email.trim().length > 100) {
+        if (email == null || email.trim() == "")
             return false;
-        }        
 
         const padraoEmail = /[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,4}/;
-        if (!padraoEmail.test(email)) {
+        if (!padraoEmail.test(email))
             return false;
-        }
-
         return true;
     }
+
 
     //-----------------------------------------------------------------------------------------//
 
     static validarTelefone(telefone) {
-        if (typeof telefone != 'string' || telefone.trim() == "" || telefone.trim().length > 21) {
+        if (typeof telefone != 'string' || telefone.trim() == "") {
             return false;
         }
 

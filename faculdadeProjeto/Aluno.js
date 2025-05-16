@@ -98,13 +98,14 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarMatricula(matr) {
-        if (matr == null || matr == "" || matr == undefined)
+        if (matr == null || matr.trim() == "")
             return false;
         const padraoMatricula = /[0-9]/;
         if (!padraoMatricula.test(matr))
             return false;
         return true;
     }
+
 
     //-----------------------------------------------------------------------------------------//
 
@@ -122,7 +123,7 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarEmail(email) {
-        if (email == null || email == "" || email == undefined)
+        if (email == null || email.trim() == "")
             return false;
 
         const padraoEmail = /[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,4}/;
@@ -134,12 +135,15 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarTelefone(telefone) {
-        if (telefone == null || telefone == "" || telefone == undefined)
+        if (typeof telefone != 'string' || telefone.trim() == "") {
             return false;
+        }
 
         const padraoTelefone = /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/;
-        if (!padraoTelefone.test(telefone))
+        if (!padraoTelefone.test(telefone)) {
             return false;
+        }
+
         return true;
     }
 }
