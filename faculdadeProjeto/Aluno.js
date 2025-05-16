@@ -108,41 +108,6 @@ class Aluno {
 
     //-----------------------------------------------------------------------------------------//
 
-    static validarCpf(strCpf) {
-        let soma;
-        let resto;
-        let i;
-
-        soma = 0;
-        strCpf = strCpf.replace(".", "");
-        strCpf = strCpf.replace(".", "");
-        strCpf = strCpf.replace("-", "");
-
-        if (strCpf == "00000000000") return false;
-
-        for (i = 1; i <= 9; i++)
-            soma = soma + parseInt(strCpf.substring(i - 1, i)) * (11 - i);
-        resto = (soma * 10) % 11;
-
-        if (resto == 10)
-            resto = 0;
-        if (resto != parseInt(strCpf.substring(9, 10)))
-            return false;
-
-        soma = 0;
-        for (i = 1; i <= 10; i++)
-            soma = soma + parseInt(strCpf.substring(i - 1, i)) * (12 - i);
-        resto = (soma * 10) % 11;
-
-        if (resto == 10 || resto == 11)
-            resto = 0;
-        if (resto != parseInt(strCpf.substring(10, 11)))
-            return false;
-        return true;
-    }
-
-    //-----------------------------------------------------------------------------------------//
-
     static validarNome(nome) {
         if (nome == null || nome == "" || nome == undefined)
             return false;
