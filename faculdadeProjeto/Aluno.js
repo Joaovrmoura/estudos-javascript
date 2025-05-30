@@ -6,16 +6,17 @@ class Aluno {
     #nome;
     #email;
     #telefone;
+    #curso;
 
-    constructor(matr, id_aluno, nome, email, telefone) {
+    constructor(matr, id_aluno, nome, email, telefone, curso = null) {
         this.setMatricula(matr);
         this.setCpf(cpf);
         this.setNome(nome);
         this.setEmail(email);
         this.setTelefone(telefone);
         this.setIdAluno(id_aluno)
+        this.setCurso(curso)
     }
-
 
     //-----------------------------------------------------------------------------------------//
 
@@ -87,18 +88,41 @@ class Aluno {
 
     //-----------------------------------------------------------------------------------------//
 
-
-    static validarId(id_aluno) {
-        if (typeof id_aluno === 'number' && id_aluno > 0) {
-            return true;
-        }
-        return false
+    async getIdCurso() {
+        if(this.curso.constructor.name === "Promise")
+            this.curso = await this.curso;
+        return this.#curso = curso
     }
 
     //-----------------------------------------------------------------------------------------//
 
+    setCurso(curso) {
+        if (!Aluno.validarCurso(curso))
+            throw new ModelError("id_aluno inválido: " + curso);
+        this.curso = curso;
+    }
+
+    //-----------------------------------------------------------------------------------------//
+
+
+    static validarId(id) {
+        if (id === null || id === undefined || id.trim() === '') {
+           return false
+    }
+        return true
+    }
+
+    //-----------------------------------------------------------------------------------------//
+
+    static validarCurso(curso) {
+        if (curso === null || curso === undefined ||curso.trim() == "")
+            return false;
+        return true;
+    }
+    //-----------------------------------------------------------------------------------------//
+
     static validarMatricula(matr) {
-        if (matr == null || matr.trim() == "")
+        if (matr === null || matr === undefined || matr.trim() == "")
             return false;
         const padraoMatricula = /[0-9]/;
         if (!padraoMatricula.test(matr))
@@ -110,7 +134,7 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarNome(nome) {
-        if (nome == null || nome == "" || nome == undefined)
+        if (nome === null || nome == "" || nome === undefined)
             return false;
         if (nome.length > 40)
             return false;
@@ -123,7 +147,7 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarEmail(email) {
-        if (email == null || email.trim() == "")
+        if (email === null || email === undefined || email.trim() == "")
             return false;
 
         const padraoEmail = /[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,4}/;
@@ -135,7 +159,7 @@ class Aluno {
     //-----------------------------------------------------------------------------------------//
 
     static validarTelefone(telefone) {
-        if (typeof telefone != 'string' || telefone.trim() == "") {
+        if (telefone === null || telefone === undefined || telefone.trim() == "") {
             return false;
         }
 
