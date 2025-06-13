@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase CRUD Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <i class="fas fa-fire"></i> Firebase CRUD Manager
+            </h1>
+            <p>Gerencie suas entidades do Firebase (Usuários, Cursos, Instrutores) com este painel de controle</p>
+            <button id="btnLogout" style="display:none;" class="btn btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+
+        <div id="authStatus" class="status-bar not-authenticated">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Você não está autenticado. Faça login para acessar o sistema.</span>
+        </div>
+
+        <div id="authSection" class="auth-section">
+            <h2><i class="fas fa-user-lock"></i> Autenticação</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="usuario@exemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Sua senha">
+            </div>
+            <div class="actions">
+                <button id="btnLogin" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                <button id="btnLogout" class="btn btn-danger" style="display:none">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+
+        <div id="dashboard" style="display:none">
+            <div class="tabs">
+                <div class="tab active" data-tab="usuarios">Usuários</div>
+                <div class="tab" data-tab="cursos">Cursos</div>
+                <div class="tab" data-tab="instrutores">Instrutores</div>
+                <div class="tab" data-tab="relacoes">Relações</div>
+            </div>
+
+            <!-- Tab Usuários -->
+            <div id="usuariosTab" class="tab-content active">
+                <div class="dashboard">
+                    <div class="card">
+                        <h2><i class="fas fa-user-plus"></i> Criar Usuário</h2>
+                        <div class="form-group">
+                            <label for="userNome">Nome</label>
+                            <input type="text" id="userNome" placeholder="Nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">Email</label>
+                            <input type="email" id="userEmail" placeholder="Email do usuário">
+                        </div>
+                        <div class="form-group">
+                            <label for="userFuncao">Função</label>
+                            <select id="userFuncao">
+                                <option value="ALUNO">Aluno</option>
+                                <option value="INSTRUTOR">Instrutor</option>
+                                <option value="ADMIN">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="actions">
+                            <button id="btnCreateUser" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Criar Usuário
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-users"></i> Lista de Usuários</h2>
+                        <div id="usersList" class="entity-list">
+                            <!-- Lista de usuários será preenchida aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Cursos -->
+            <div id="cursosTab" class="tab-content">
+                <div class="dashboard">
+                    <div class="card">
+                        <h2><i class="fas fa-book"></i> Criar Curso</h2>
+                        <div class="form-group">
+                            <label for="cursoSigla">Sigla</label>
+                            <input type="text" id="cursoSigla" placeholder="Ex: NEST101">
+                        </div>
+                        <div class="form-group">
+                            <label for="cursoNome">Nome</label>
+                            <input type="text" id="cursoNome" placeholder="Nome do curso">
+                        </div>
+                        <div class="form-group">
+                            <label for="cursoDescricao">Descrição</label>
+                            <textarea id="cursoDescricao" placeholder="Descrição do curso"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="cursoCargaHoraria">Carga Horária (horas)</label>
+                            <input type="number" id="cursoCargaHoraria" placeholder="Ex: 40">
+                        </div>
+                        <div class="form-group">
+                            <label for="cursoCategoria">Categoria</label>
+                            <input type="text" id="cursoCategoria" placeholder="Ex: Backend, Frontend">
+                        </div>
+                        <div class="form-group">
+                            <label for="cursoInstrutorId">ID do Instrutor (opcional)</label>
+                            <input type="text" id="cursoInstrutorId" placeholder="ID do instrutor">
+                        </div>
+                        <div class="actions">
+                            <button id="btnCreateCurso" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Criar Curso
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-list"></i> Lista de Cursos</h2>
+                        <div id="cursosList" class="entity-list">
+                            <!-- Lista de cursos será preenchida aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Instrutores -->
+            <div id="instrutoresTab" class="tab-content">
+                <div class="dashboard">
+                    <div class="card">
+                        <h2><i class="fas fa-chalkboard-teacher"></i> Criar Instrutor</h2>
+                        <div class="form-group">
+                            <label for="instrutorNome">Nome</label>
+                            <input type="text" id="instrutorNome" placeholder="Nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="instrutorEmail">Email</label>
+                            <input type="email" id="instrutorEmail" placeholder="Email do instrutor">
+                        </div>
+                        <div class="form-group">
+                            <label for="instrutorTelefone">Telefone</label>
+                            <input type="text" id="instrutorTelefone" placeholder="(00) 00000-0000">
+                        </div>
+                        <div class="actions">
+                            <button id="btnCreateInstrutor" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Criar Instrutor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-users"></i> Lista de Instrutores</h2>
+                        <div id="instrutoresList" class="entity-list">
+                            <!-- Lista de instrutores será preenchida aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Tab Relações -->
+            <div id="relacoesTab" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-link"></i> Relacionar Curso com Instrutor</h2>
+                    <div class="form-group">
+                        <label for="relCursoId">Sigla do Curso</label>
+                        <input type="text" id="relCursoId" placeholder="ID do curso">
+                    </div>
+                    <div class="form-group">
+                        <label for="relInstrutorId">UID do Instrutor</label>
+                        <input type="text" id="relInstrutorId" placeholder="ID do instrutor">
+                    </div>
+                    <div class="actions">
+                        <button id="btnCreateRelacao" class="btn btn-primary">
+                            <i class="fas fa-link"></i> Criar Relação
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="alertsContainer"></div>
+
+        <footer>
+            <p>Firebase CRUD Manager &copy; 2023 | Desenvolvido para gerenciar entidades com regras personalizadas</p>
+        </footer>
+    </div>
+
+    <script src="main.js"> </script>
+</body>
+</html>

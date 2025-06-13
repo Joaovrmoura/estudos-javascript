@@ -1,0 +1,190 @@
+{
+    "rules": {
+        ".read": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",        
+        ".write": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+
+        "alunos": {
+            ".indexOn": ["email"],
+            "$uid": {
+                ".validate" : "newData.hasChildren(['email','funcao'])",
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid && newData.child('funcao').val() === 'ALUNO'"        
+            }
+        },
+        
+      	"aulas": {
+          // ".indexOn": [""],
+          ".read": "root.child('usuarios').child(auth.uid).exists() === true",
+          ".write": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'INSTRUTOR'",
+          // "instrutor": {
+          //     ".validate": "!data.exists()" 
+          // }
+          
+        },
+          
+        "cursos": {
+            ".indexOn": ["nome","categoria"],
+            ".read": "root.child('usuarios').child(auth.uid).exists() === true",
+            "$sigla": {
+                ".validate" : "newData.hasChildren(['sigla','nome','descricao','cargaHoraria','categoria'])",
+            }          
+        },
+     
+          "instrutores" : {
+            ".indexOn": ["email"],
+            "$uid": {
+                ".validate" : "newData.hasChildren(['nome','email','telefone'])",
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid && root.child('usuarios').child(auth.uid).child('funcao').val() === 'INSTRUTOR'"
+            }
+        },
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+firebaseRules2
+
+
+{
+    "rules": {
+        ".read": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",        
+        ".write": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+
+        "alunos": {
+            ".indexOn": ["email"],
+            "$uid": {
+                ".validate" : "newData.hasChildren(['email','funcao'])",
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid && newData.child('funcao').val() === 'ALUNO'"        
+            }
+        },
+
+        "cursos": {
+            ".indexOn": ["nome","categoria"],
+            ".read": "root.child('usuarios').child(auth.uid).exists() === true",
+            
+            "$sigla": {
+                ".validate" : "newData.hasChildren(['sigla','nome','descricao','cargaHoraria','categoria'])",
+                "instrutorUID": {
+     					      ".validate": "newData.val() == null || (newData.isString() && root.child('instrutores').child(newData.val()).exists())"
+                },
+                "conteudo": {
+      						".write": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'INSTRUTOR' && root.child('cursos').child($sigla).child('instrutorUID').val() === auth.uid",
+      						".read": "true" 
+    				    },
+            }    
+        },
+     			// Sei qual instrutor está cadastrado no curso, mas não sei quais cursos o instrutor está ministrando,
+          // como relaciono os dois no firebase?
+          "instrutores" : {
+            ".indexOn": ["email"],
+            "$uid": {
+                ".validate" : "newData.hasChildren(['nome','email','telefone'])",
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid && root.child('usuarios').child(auth.uid).child('funcao').val() === 'INSTRUTOR'"
+            }
+        },
+    }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+TECHO COMENTADO FIREBASE3
+
+
+
+{
+  "rules": {
+    // REGRAS GLOBAIS:
+    // Permite leitura/escrita apenas para admins (tokens especiais ou usuários com função ADMIN)
+    ".read": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+    ".write": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+
+    // NÓ DE USUÁRIOS:
+    "usuarios": {
+      // Qualquer usuário autenticado pode acessar
+      ".read": "auth != null",
+      ".write": "auth != null",
+      
+      // Validações para cada usuário
+      "$uid": {
+        // Obriga ter nome, email e função
+        ".validate": "newData.hasChildren(['nome', 'email', 'funcao'])",
+        
+        // Validação específica para a função
+        "funcao": {
+          // Deve ser string e ter um dos valores permitidos
+          ".validate": "newData.isString() && (newData.val() === 'ALUNO' || newData.val() === 'INSTRUTOR' || newData.val() === 'ADMIN')"
+        }
+      }
+    },
+    
+    // NÓ DE CURSOS:
+    "cursos": {
+      // Otimização para consultas
+      ".indexOn": ["nome", "categoria"],
+      
+      // Acesso apenas para usuários registrados
+      ".read": "root.child('usuarios').child(auth.uid).exists()",
+      
+      // Validações para cada curso
+      "$sigla": {
+        // Campos obrigatórios
+        ".validate": "newData.hasChildren(['sigla', 'nome', 'descricao', 'cargaHoraria', 'categoria'])",
+        
+        // Instrutor é opcional
+        "instrutorId": {
+          ".validate": "newData.val() == null || newData.isString()"
+        },
+        
+        // Regras para conteúdo do curso
+        "conteudo": {
+          // Somente o instrutor associado pode editar
+          ".write": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'INSTRUTOR' && newData.parent().child('instrutorId').val() === auth.uid",
+          // Qualquer um pode ler
+          ".read": "true"
+        }
+      }
+    },
+    
+    // NÓ DE INSTRUTORES:
+    "instrutores": {
+      // Otimização para consultas por email
+      ".indexOn": ["email"],
+      
+      // Somente admins podem ver a lista completa
+      ".read": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+      
+      // Regras por instrutor
+      "$uid": {
+        // Campos obrigatórios
+        ".validate": "newData.hasChildren(['nome','email','telefone'])",
+        
+        // Acesso individual
+        ".read": "$uid === auth.uid || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
+        
+        // Somente admins podem modificar
+        ".write": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'"
+      }
+    },
+    
+    // RELACIONAMENTOS CURSO-INSTRUTOR:
+    "curso_instrutor": {
+      "$sigla": {
+        "$instrutorId": {
+          // Valida existência do curso e instrutor
+          ".validate": "root.child('cursos').child($sigla).exists() && root.child('instrutores').child($instrutorId).exists()",
+          
+          // Somente admins podem criar relações
+          ".write": "root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'"
+        }
+      }
+    }
+  }
+}
+
